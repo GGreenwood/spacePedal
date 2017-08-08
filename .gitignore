@@ -1,0 +1,12 @@
+*.l#*
+*.b#*
+*.s#*
+*.lck
+*.pro
+*.job
+*.hex
+*.obj
+*.swp
+*.out
+*.elf
+*.o
