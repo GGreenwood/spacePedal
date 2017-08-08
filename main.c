@@ -12,12 +12,15 @@
 
 int main(void)
 {
-	SET_BIT(DDRB, PIN_LED);
+	SET_BIT(DDRB, PIN_LED);		// Set LED pin as output
+	CLEAR_BIT(DDRB, PIN_SWITCH);	// Set switch pin as input
+
 	while(1)
 	{
-		SET_BIT(PORTB, PIN_LED);
-		_delay_ms(2000);
-		CLEAR_BIT(PORTB, PIN_LED);
-		_delay_ms(2000);
+		if(GET_BIT(PINB, PIN_SWITCH)) {
+			CLEAR_BIT(PORTB, PIN_LED);
+		} else {
+			SET_BIT(PORTB, PIN_LED);
+		}
 	}
 }
