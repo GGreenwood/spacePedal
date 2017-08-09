@@ -154,7 +154,7 @@ int main(void)
 
             } else {
                 SET_BIT(PORTB, PIN_LED);
-                keyboard_report.keycode[0] = 44;
+                keyboard_report.keycode[0] = 41;
             }
             usbSetInterrupt((void *)&keyboard_report, sizeof(keyboard_report));
         }
