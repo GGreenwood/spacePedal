@@ -138,8 +138,9 @@ int main(void)
 
     sei();
 
-    SET_BIT(DDRB, PIN_LED);        // Set LED pin as output
+    SET_BIT(DDRB, PIN_LED);         // Set LED pin as output
     CLEAR_BIT(DDRB, PIN_SWITCH);    // Set switch pin as input
+    SET_BIT(PORTB, PIN_SWITCH);     // Enable switch pin's internal pullup
 
     while(1)
     {
@@ -148,17 +149,15 @@ int main(void)
 
         if(usbInterruptIsReady()) {
             if(GET_BIT(PINB, PIN_SWITCH)) {
-                buildReport(44);
+                CLEAR_BIT(PORTB, PIN_LED);
+                keyboard_report.keycode[0] = 0;
+
             } else {
-                buildReport(0);
+                SET_BIT(PORTB, PIN_LED);
+                keyboard_report.keycode[0] = 44;
             }
             usbSetInterrupt((void *)&keyboard_report, sizeof(keyboard_report));
         }
 
-        if(GET_BIT(PINB, PIN_SWITCH)) {
-            CLEAR_BIT(PORTB, PIN_LED);
-        } else {
-            SET_BIT(PORTB, PIN_LED);
-        }
     }
 }
